@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.mixtrack.initializer</string>
+    <key>ProgramArguments</key>
+    <array>
+        <string>/bin/bash</string>
+        <string>-c</string>
+        <string>echo "Launch agent triggered at $(date)" > /tmp/mixtrack-debug.log && sleep 2 && python3 SCRIPT_PATH_PLACEHOLDER/mixtrackplatinumfx.py >> /tmp/mixtrack-initializer.log 2>&1</string>
+    </array>
+    <key>RunAtLoad</key>
+    <false/>
+    <key>LaunchEvents</key>
+    <dict>
+        <key>com.apple.iokit.matching</key>
+        <dict>
+            <key>com.apple.device-attach</key>
+            <dict>
+                <key>IOProviderClass</key>
+                <string>IOUSBDevice</string>
+                <key>IONameMatched</key>
+                <string>*MixTrack*</string>
+                <key>idVendor</key>
+                <integer>3034</integer>
+            </dict>
+        </dict>
+    </dict>
+    <key>StandardOutPath</key>
+    <string>/tmp/mixtrack-initializer.log</string>
+    <key>StandardErrorPath</key>
+    <string>/tmp/mixtrack-initializer-error.log</string>
+</dict>
+</plist>
